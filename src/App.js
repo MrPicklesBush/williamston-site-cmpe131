@@ -10,6 +10,7 @@ import Business from './components/pages/Business';
 import VisitUs from './components/pages/VisitUs';
 import LogIn from './components/pages/LogIn';
 import Register from './components/pages/Register';
+import ForgetPassword from './components/pages/ForgetPassword';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path='/visit-us' exact element={ <VisitUs />}></Route>
         <Route path='/log-in' exact element={ <LogIn />}></Route>
         <Route path='/register' exact element={ <Register />}></Route>
+        <Route path='/reset' exact element={ <ForgetPassword />}></Route>
 
         </Routes>
       </Router>
