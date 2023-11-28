@@ -1,9 +1,21 @@
+import { signOut } from "firebase/auth";
 import React from 'react';
 import '../App.css';
 import { Button } from './Button';
+import { database } from './FirebaseConfig';
+import { useNavigate } from "react-router-dom";
 import './HeroSection.css';
 
 function HeroSection() {
+  const history = useNavigate()
+  
+  const handleClick = () =>{
+    signOut(database).then(val=>{
+        console.log(val,"val")
+        history('/register')
+    })
+}
+  
   return (
     
     <div className='hero-container'>
@@ -26,6 +38,14 @@ function HeroSection() {
           onClick={console.log('hey')}
         >
           WATCH TRAILER <i className='far fa-play-circle' />
+        </Button>
+        <Button
+          className='btns'
+          buttonStyle='btn--primary'
+          buttonSize='btn--large'
+          onClick={handleClick}
+        >
+          Sign Out
         </Button>
       </div>
     </div>
