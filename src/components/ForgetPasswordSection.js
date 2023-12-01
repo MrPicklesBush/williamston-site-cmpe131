@@ -20,6 +20,7 @@ function ForgetPasswordSection(){
         <div className="reset">
             <h1>Forgot Password</h1>
             <form onSubmit={(e)=>handleSubmit(e)}>
+                <p>Email:</p>
                 <input name="email" /><br/><br/>
                 <button>Reset</button>
             </form>

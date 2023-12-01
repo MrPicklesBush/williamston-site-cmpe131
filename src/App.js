@@ -8,8 +8,7 @@ import Departments from './components/pages/Departments';
 import Community from './components/pages/Community';
 import Business from './components/pages/Business';
 import VisitUs from './components/pages/VisitUs';
-import LogIn from './components/pages/LogIn';
-import Register from './components/pages/Register';
+import Register_Login from './components/pages/Register_Login';
 import ForgetPassword from './components/pages/ForgetPassword';
 
 function App() {
@@ -24,8 +23,7 @@ function App() {
         <Route path='/community' exact element={ <Community />}></Route>
         <Route path='/business' exact element={ <Business />}></Route>
         <Route path='/visit-us' exact element={ <VisitUs />}></Route>
-        <Route path='/log-in' exact element={ <LogIn />}></Route>
-        <Route path='/register' exact element={ <Register />}></Route>
+        <Route path='/register-login' exact element={ <Register_Login />}></Route>
         <Route path='/reset' exact element={ <ForgetPassword />}></Route>
 
         </Routes>

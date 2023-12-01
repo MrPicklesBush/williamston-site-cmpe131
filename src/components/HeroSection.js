@@ -12,7 +12,7 @@ function HeroSection() {
   const handleClick = () =>{
     signOut(database).then(val=>{
         console.log(val,"val")
-        history('/register')
+        history('/register-login')
     })
 }
   

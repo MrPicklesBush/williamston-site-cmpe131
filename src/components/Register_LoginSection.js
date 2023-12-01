@@ -4,9 +4,9 @@ import '../App.css';
 import { Button } from './Button';
 import { database } from './FirebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import './RegisterSection.css';
+import './Register_LoginSection.css';
 
-function RegisterSection() {
+function Register_LoginSection() {
   const [login,setLogin] = useState(false)
 
   const history = useNavigate()
@@ -69,4 +69,4 @@ function RegisterSection() {
   );
 }
 
-export default RegisterSection;
+export default Register_LoginSection;
