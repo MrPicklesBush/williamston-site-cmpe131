@@ -4,86 +4,90 @@ import PizZip from 'pizzip';
 import { PDFDocument } from 'pdf-lib';
 import './PDFConverter.css';
 
+
+
 const PDFConverter = () => {
-    const [pdfBytes, setPdfBytes] = useState(null);
-    const [fileArrayBuffer, setFileArrayBuffer] = useState(null);
-    const [isImage, setIsImage] = useState(false);
+  const [pdfBytes, setPdfBytes] = useState(null);
+  const [fileArrayBuffer, setFileArrayBuffer] = useState(null);
+  const [isImage, setIsImage] = useState(false);
 
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                setFileArrayBuffer(event.target.result);
-                // Check if the file is an image
-                setIsImage(file.type.startsWith('image'));
-            };
-            reader.readAsArrayBuffer(file);
-        }
-    };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setFileArrayBuffer(event.target.result);
+        // Check if the file is an image
+        setIsImage(file.type.startsWith('image'));
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  };
 
-    const convertToPDF = async () => {
-        try {
-            if (isImage) {
-                // Convert image to PDF
-                const pdfDoc = await PDFDocument.create();
-                const page = pdfDoc.addPage();
-                const { width, height } = page.getSize();
-                const imageBytes = new Uint8Array(fileArrayBuffer);
-                const image = await pdfDoc.embedPng(imageBytes);
-                const imageWidth = width; // Set the desired width of the image
-                const imageHeight = (imageWidth / image.width) * image.height;
-                page.drawImage(image, {
-                    x: 0,
-                    y: height - imageHeight, // Adjust the y-coordinate to position the image at the top
-                    width: imageWidth,
-                    height: imageHeight,
-                });
-                const newPdfBytes = await pdfDoc.save();
-                setPdfBytes(newPdfBytes);
-            } else {
-                // Convert Word document to PDF
-                const zip = new PizZip(fileArrayBuffer);
-                const doc = new Docxtemplater().loadZip(zip);
-                doc.render();
+  const convertToPDF = async () => {
+    try {
+      if (isImage) {
+        // Convert image to PDF
+        const pdfDoc = await PDFDocument.create();
+        const page = pdfDoc.addPage();
+        const { width, height } = page.getSize();
+        const imageBytes = new Uint8Array(fileArrayBuffer);
+        const image = await pdfDoc.embedPng(imageBytes);
+        const imageWidth = width; // Set the desired width of the image
+        const imageHeight = (imageWidth / image.width) * image.height;
+        page.drawImage(image, {
+          x: 0,
+          y: height - imageHeight, // Adjust the y-coordinate to position the image at the top
+          width: imageWidth,
+          height: imageHeight,
+        });
+        const newPdfBytes = await pdfDoc.save();
+        setPdfBytes(newPdfBytes);
+      } else {
+        // Convert Word document to PDF
+        const zip = new PizZip(fileArrayBuffer);
+        const doc = new Docxtemplater().loadZip(zip);
+        doc.render();
 
-                const pdfDoc = await PDFDocument.create();
-                const page = pdfDoc.addPage();
-                const font = await pdfDoc.embedFont('Helvetica');
-                let pdfText = doc.getFullText();
+        const pdfDoc = await PDFDocument.create();
+        const page = pdfDoc.addPage();
+        const font = await pdfDoc.embedFont('Helvetica');
+        let pdfText = doc.getFullText();
 
-                // Replace different newline characters with a consistent one
-                pdfText = pdfText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+        // Replace different newline characters with a consistent one
+        pdfText = pdfText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
-                // Set the position at the top of the page
-                const position = { x: 50, y: page.getHeight() - 50 }; // Adjust as needed
+        // Set the position at the top of the page
+        const position = { x: 50, y: page.getHeight() - 50 }; // Adjust as needed
 
-                // Set the font size for the text
-                const fontSize = 12; // Adjust as needed
+        // Set the font size for the text
+        const fontSize = 12; // Adjust as needed
 
-                // Split the text into lines based on newlines
-                const lines = pdfText.split('\n');
+        // Split the text into lines based on newlines
+        const lines = pdfText.split('\n');
 
-                // Draw each line of text with appropriate font size and line breaks
-                lines.forEach((line, index) => {
-                    page.drawText(line, { font, x: position.x, y: position.y - index * fontSize, size: fontSize });
-                });
+        // Draw each line of text with appropriate font size and line breaks
+        lines.forEach((line, index) => {
+          page.drawText(line, { font, x: position.x, y: position.y - index * fontSize, size: fontSize });
+        });
 
-                const newPdfBytes = await pdfDoc.save();
-                setPdfBytes(newPdfBytes);
-            }
-        } catch (error) {
-            console.error('Error converting to PDF:', error);
-        }
-    };
-    
-    return (
+        const newPdfBytes = await pdfDoc.save();
+        setPdfBytes(newPdfBytes);
+      }
+    } catch (error) {
+      console.error('Error converting to PDF:', error);
+    }
+  };
+
+  return (
     <div className="pdf-converter-container">
+      <label htmlFor="fileInput">Choose File</label>
       <input
+        id="fileInput"
         type="file"
         accept=".docx, .png"
-        onChange={handleFileChange}
         className="pdf-converter-input"
+        onChange={handleFileChange}
       />
       <button
         onClick={convertToPDF}
