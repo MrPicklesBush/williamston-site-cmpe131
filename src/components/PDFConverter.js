@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Docxtemplater from 'docxtemplater';
 import PizZip from 'pizzip';
 import { PDFDocument } from 'pdf-lib';
+import './PDFConverter.css';
 
 const PDFConverter = () => {
     const [pdfBytes, setPdfBytes] = useState(null);

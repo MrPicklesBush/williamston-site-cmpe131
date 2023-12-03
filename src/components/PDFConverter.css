@@ -1,6 +1,12 @@
 :root {
     --primary: #fff;
   }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+  }
   
   .pdf-converter-container {
     font-family: 'Arial', sans-serif;
@@ -10,7 +16,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #f0bfc8;
+    background-color: white;
   }
   
   .pdf-converter-input {
@@ -44,4 +50,11 @@
   
   .pdf-download-link:hover {
     text-decoration: underline;
+  }
+  
+  .background-image{
+    background-image: url('/public/images/image%20convert.jpg'); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50vh;
   }

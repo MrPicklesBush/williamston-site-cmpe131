@@ -1,0 +1,15 @@
+/* PDFConverterPage.css */
+.pdf-converter-page {
+    text-align: center;
+    margin-top: 50px; /* Adjust as needed */
+  }
+  
+  .pdf-converter-title {
+    font-size: 2rem; /* Adjust as needed */
+    margin-bottom: 10px; /* Adjust as needed */
+  }
+  
+  .pdf-converter-subtitle {
+    font-size: 1.5rem; /* Adjust as needed */
+    margin-bottom: 20px; /* Adjust as needed */
+  }
