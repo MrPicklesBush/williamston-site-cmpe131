@@ -57,7 +57,18 @@ const EventCalendar = () => {
     const [allEvents, setAllEvents] = useState(events)
 
     function handleAddEvent() {
-        setAllEvents([...allEvents, newEvent])
+        // Check if the new event already exists in the allEvents array
+        const eventExists = allEvents.some(
+            (event) => event.title === newEvent.title && event.start === newEvent.start && event.end === newEvent.end
+        );
+
+        // If the event doesn't exist, add it to the allEvents array
+        if (!eventExists) {
+            setAllEvents([...allEvents, newEvent]);
+        }
+
+        // Reset the newEvent state
+        setNewEvent({ title: "", start: "", end: "" });
     }
 
 

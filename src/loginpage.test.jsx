@@ -1,11 +1,11 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { act } from 'react-dom/test-utils';
 import Register_LoginSection from './components/Register_LoginSection';
 import { BrowserRouter } from 'react-router-dom';
+import EventCalendar from './components/EventCalendar';
 
-// TestFiles.test.jsx
 jest.mock('./components/FirebaseConfig', () => ({
   __esModule: true,
   default: {
