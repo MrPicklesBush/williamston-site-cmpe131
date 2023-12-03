@@ -10,6 +10,7 @@ import Business from './components/pages/Business';
 import VisitUs from './components/pages/VisitUs';
 import Register_Login from './components/pages/Register_Login';
 import ForgetPassword from './components/pages/ForgetPassword';
+import PDFConverterPage from "./components/pages/PDFConverterPage";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Route path='/visit-us' exact element={ <VisitUs />}></Route>
         <Route path='/register-login' exact element={ <Register_Login />}></Route>
         <Route path='/reset' exact element={ <ForgetPassword />}></Route>
-
+        <Route path= '/pdf-converter' exact element = {<PDFConverterPage/>}></Route>
         </Routes>
       </Router>
     </>

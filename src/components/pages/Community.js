@@ -3,7 +3,7 @@ import '../../App.css'
 
 function Community() {
   return (
-    <h1 className='community'>COMMUNITY TO BE ADDED</h1>
+    <h1 className='community'></h1>
   )
 }
 

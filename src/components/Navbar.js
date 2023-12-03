@@ -20,9 +20,9 @@ function Navbar() {
 
   useEffect(() => {
     showButton();
-  },[])
+  }, [])
 
-  
+
 
   window.addEventListener('resize', showButton);
 
@@ -88,6 +88,12 @@ function Navbar() {
                 onClick={closeMobileMenu}
               >
                 Visit Us
+              </Link>
+            </li>
+
+            <li className='nav-item'>
+              <Link to='/pdf-converter' className='nav-links' onClick={closeMobileMenu}>
+                PDF Converter
               </Link>
             </li>
 
