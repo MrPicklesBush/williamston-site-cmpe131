@@ -1,73 +1,92 @@
-  .register-container {
-    background: url('/public/images/City Hall Sign.JPG') center center/cover no-repeat;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
-    object-fit: contain;
-  }
+.register-container {
+  background: url('/public/images/City Hall Sign.JPG') center center/cover no-repeat;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+  object-fit: contain;
+  color: #fff;
+}
 
- /* .parallax {
-    background-image: url("https://media-cldnry.s-nbcnews.com/image/upload/t_fit-760w,f_auto,q_auto:best/rockcms/2023-06/Grimace-mcdonalds-mc-230608-731819.jpg");
-    min-height: 50px;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }*/
-  
-  .register-container > h1 {
-    color: #fff;
-    font-size: 100px;
-    margin-top: -100px;
-  }
-  
-  .register-container > p {
-    margin-top: 8px;
-    color: #fff;
-    font-size: 32px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-      'Lucida Sans', Arial, sans-serif;
-  }
-  
-  .register-btns {
-    margin-top: 32px;
-  }
-  
-  .register-btns .btn {
-    margin: 6px;
-  }
-  
-  .fa-play-circle {
-    margin-left: 4px;
-  }
-  
-  @media screen and (max-width: 960px) {
-    .register-container > h1 {
-      font-size: 70px;
-      margin-top: -150px;
-    }
-  }
-  
-  @media screen and (max-width: 768px) {
-    .register-container > h1 {
-      font-size: 50px;
-      margin-top: -100px;
-    }
-  
-    .register-container > p {
-      font-size: 30px;
-    }
-  
-    .btn-mobile {
-      display: block;
-      text-decoration: none;
-    }
-  
-    .btn {
-      width: 100%;
-    }
-  }
+.row {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.pointer {
+  cursor: pointer;
+  margin-right: 20px;
+  font-size: 18px;
+}
+
+.activeColor {
+  color: #42a5f5;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  width: 300px;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  width: 300px;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #42a5f5;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1e88e5;
+}
+
+p {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.toggle-btn {
+  background-color: transparent;
+  border: none;
+  color: #42a5f5;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.forgot-password {
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 10px;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+  color: #42a5f5;
+}
