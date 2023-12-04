@@ -97,16 +97,11 @@ function Navbar() {
               </Link>
             </li>
 
-            <li>
-              <Link
-                to='/register-login'
-                className='nav-links-mobile'
-                onClick={closeMobileMenu}
-              >
+            <li className='nav-item'>
+              <Link to='/register-login' className='nav-links' onClick={closeMobileMenu}>
                 Register
               </Link>
             </li>
-            {button && <Button buttonStyle='btn--outline'>Register_Login</Button>}
           </ul>
         </div>
       </nav>
