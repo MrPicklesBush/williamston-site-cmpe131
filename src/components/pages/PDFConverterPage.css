@@ -1,4 +1,8 @@
 /* PDFConverterPage.css */
+.pdf-converter-container{
+  background-color: #ffd1d1;
+}
+
 .pdf-converter-page {
     text-align: center;
     margin-top: 50px; /* Adjust as needed */
