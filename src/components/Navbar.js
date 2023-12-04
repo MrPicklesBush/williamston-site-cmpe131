@@ -99,7 +99,7 @@ function Navbar() {
 
             <li className='nav-item'>
               <Link to='/register-login' className='nav-links' onClick={closeMobileMenu}>
-                Register
+                Register/Login
               </Link>
             </li>
           </ul>
