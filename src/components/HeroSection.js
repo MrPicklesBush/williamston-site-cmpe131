@@ -39,14 +39,6 @@ function HeroSection() {
         >
           WATCH TRAILER <i className='far fa-play-circle' />
         </Button>
-        <Button
-          className='btns'
-          buttonStyle='btn--primary'
-          buttonSize='btn--large'
-          onClick={handleClick}
-        >
-          Sign Out
-        </Button>
       </div>
     </div>
   );
