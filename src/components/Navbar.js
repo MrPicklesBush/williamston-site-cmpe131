@@ -11,11 +11,11 @@ function Navbar() {
   const closeMobileMenu = () => setClick(false);
 
   const showButton = () => {
-    if (window.innerWidth <= 960) {
+    /*if (window.innerWidth <= 960) {
       setButton(false);
     } else {
       setButton(true);
-    }
+    }*/
   };
 
   useEffect(() => {
@@ -42,7 +42,7 @@ function Navbar() {
                 Home
               </Link>
             </li>
-            <li className='nav-item'>
+            {/*<li className='nav-item'>
               <Link
                 to='/boards-and-commissions'
                 className='nav-links'
@@ -50,7 +50,7 @@ function Navbar() {
               >
                 Boards & Commissions
               </Link>
-            </li>
+            </li>*/}
             <li className='nav-item'>
               <Link
                 to='/departments'
@@ -61,7 +61,7 @@ function Navbar() {
               </Link>
             </li>
 
-            <li className='nav-item'>
+            {/*<li className='nav-item'>
               <Link
                 to='/community'
                 className='nav-links'
@@ -69,7 +69,7 @@ function Navbar() {
               >
                 Our Community
               </Link>
-            </li>
+  </li>*/}
 
             <li className='nav-item'>
               <Link
@@ -97,16 +97,11 @@ function Navbar() {
               </Link>
             </li>
 
-            <li>
-              <Link
-                to='/register-login'
-                className='nav-links-mobile'
-                onClick={closeMobileMenu}
-              >
-                Register
+            <li className='nav-item'>
+              <Link to='/register-login' className='nav-links' onClick={closeMobileMenu}>
+                Register/Login
               </Link>
             </li>
-            {button && <Button buttonStyle='btn--outline'>Register_Login</Button>}
           </ul>
         </div>
       </nav>
