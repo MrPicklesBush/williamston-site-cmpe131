@@ -1,79 +1,98 @@
-// import React from 'react';
-// import { render, fireEvent, waitFor, screen} from '@testing-library/react';
-// import '@testing-library/jest-dom';
-// import { act } from 'react-dom/test-utils';
-// import Register_LoginSection from './components/Register_LoginSection';
-// import { BrowserRouter } from 'react-router-dom';
-// import EventCalendar from './components/EventCalendar';
+import React from 'react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+import { MemoryRouter } from 'react-router-dom';
+import Register_LoginSection from './components/Register_LoginSection';
+import { auth } from './components/FirebaseConfig';
 
-// jest.mock('./components/FirebaseConfig', () => ({
-//   __esModule: true,
-//   default: {
-//     auth: jest.fn(() => ({
-//       createUserWithEmailAndPassword: jest.fn(),
-//       signInWithEmailAndPassword: jest.fn(),
-//       // Add other mocked functions as needed
-//     })),
-//   },
-//   initializeApp: jest.fn(), // Mock initializeApp
-// }));
+// Mock Firebase Auth methods
+jest.mock('firebase/auth', () => ({
+  createUserWithEmailAndPassword: jest.fn(),
+  signInWithEmailAndPassword: jest.fn(),
+  signOut: jest.fn(),
+  sendPasswordResetEmail: jest.fn(),
+}));
 
-// // Your test case
-// test('renders SignUp form by default', () => {
-//   // Render the component within a BrowserRouter
-//   render(
-//     <BrowserRouter>
-//       <Register_LoginSection />
-//     </BrowserRouter>
-//   );
+// Mock useNavigate hook
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: jest.fn(),
+}));
 
-//   // Assert that the SignUp form is rendered initially
-//   const signUpForm = screen.getByTestId('signUpForm'); // Adjust this based on your component structure
-//   expect(signUpForm).toBeInTheDocument();
+describe('Register_LoginSection Component', () => {
+  test('renders Sign Up form by default', () => {
+    render(<Register_LoginSection />, { wrapper: MemoryRouter });
+    expect(screen.getByText('Sign Up')).toBeInTheDocument();
+  });
 
-//   // Optionally, you can perform more specific assertions based on your component's behavior
-//   // For example, you might check if certain input fields or buttons are present, etc.
-// });
+  test('toggles between Sign Up and Sign In forms', () => {
+    render(<Register_LoginSection />, { wrapper: MemoryRouter });
+    fireEvent.click(screen.getByText('Sign In'));
+    expect(screen.getByText('Sign In')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Sign Up'));
+    expect(screen.getByText('Sign Up')).toBeInTheDocument();
+  });
 
+  test('submits Sign Up form', async () => {
+    createUserWithEmailAndPassword.mockResolvedValueOnce({});
+  
+    render(<Register_LoginSection />, { wrapper: MemoryRouter });
+  
+    fireEvent.input(screen.getByPlaceholderText('Email'), { target: { value: 'test@example.com' } });
+    fireEvent.input(screen.getByPlaceholderText('Password'), { target: { value: 'password123' } });
+  
+    fireEvent.submit(screen.getByText('Sign Up'));
+  
+    await act(() => Promise.resolve()); // Wait for promises to resolve
+  
+    expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(
+      auth, // Use auth from FirebaseConfig
+      'test@example.com',
+      'password123'
+    );
+    expect(screen.getByText('Sign Out')).toBeInTheDocument();
+  });
 
-// describe('Register_LoginSection component', () => {
-//   it('renders SignUp form by default', () => {
-//     const { getByText } = render(<Register_LoginSection />);
-//     expect(getByText('SignUp')).toBeInTheDocument();
-//   });
+  test('submits Sign In form', async () => {
+    signInWithEmailAndPassword.mockResolvedValueOnce({});
+  
+    render(<Register_LoginSection />, { wrapper: MemoryRouter });
+  
+    fireEvent.click(screen.getByText('Sign In')); // Switch to Sign In form
+  
+    fireEvent.input(screen.getByPlaceholderText('Email'), { target: { value: 'test@example.com' } });
+    fireEvent.input(screen.getByPlaceholderText('Password'), { target: { value: 'password123' } });
+  
+    fireEvent.submit(screen.getByText('Sign In'));
+  
+    await act(() => Promise.resolve()); // Wait for promises to resolve
+  
+    expect(signInWithEmailAndPassword).toHaveBeenCalledWith(
+      auth, // Use auth from FirebaseConfig
+      'test@example.com',
+      'password123'
+    );
+    expect(screen.getByText('Sign Out')).toBeInTheDocument();
+  });
 
-//   it('switches to SignIn form when clicked', async () => {
-//     const { getByText } = render(<Register_LoginSection />);
+  test('handles Sign Out', async () => {
+    signOut.mockResolvedValueOnce({});
 
-//     act(() => {
-//       fireEvent.click(getByText('SignIn'));
-//     });
+    render(<Register_LoginSection />, { wrapper: MemoryRouter });
 
-//     await waitFor(() => {
-//       expect(getByText('SignIn')).toBeInTheDocument();
-//     });
-//   });
+    fireEvent.click(screen.getByText('Sign In')); // Switch to Sign In form
+    fireEvent.input(screen.getByPlaceholderText('Email'), { target: { value: 'test@example.com' } });
+    fireEvent.input(screen.getByPlaceholderText('Password'), { target: { value: 'password123' } });
+    fireEvent.submit(screen.getByText('Sign In'));
 
-//   it('handles SignUp form submission', async () => {
-//     const { getByText, getByPlaceholderText } = render(<Register_LoginSection />);
-//     const createUserMock = jest.fn();
+    await act(() => Promise.resolve()); // Wait for promises to resolve
 
-//     // Mocking the createUserWithEmailAndPassword function
-//     jest.spyOn(firebase.auth, 'createUserWithEmailAndPassword').mockImplementation(createUserMock);
+    fireEvent.click(screen.getByText('Sign Out'));
 
-//     act(() => {
-//       fireEvent.change(getByPlaceholderText('Email'), { target: { value: 'test@example.com' } });
-//       fireEvent.change(getByPlaceholderText('Password'), { target: { value: 'testpassword' } });
-//       fireEvent.click(getByText('SignUp'));
-//     });
+    await act(() => Promise.resolve()); // Wait for promises to resolve
 
-//     // Wait for asynchronous operations to complete
-//     await waitFor(() => {
-//       // You can make assertions about the expected behavior here
-//       expect(createUserMock).toHaveBeenCalledWith(
-//         'test@example.com',
-//         'testpassword'
-//       );
-//     });
-//   });
-// })
+    expect(signOut).toHaveBeenCalledWith(expect.any(Object)); // Firebase Auth object
+    expect(screen.getByText('Sign In')).toBeInTheDocument();
+  });
+});
+
