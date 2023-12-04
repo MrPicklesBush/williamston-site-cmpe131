@@ -90,3 +90,14 @@ p {
 .forgot-password:hover {
   color: #42a5f5;
 }
+
+/* Add or modify styles for activeColor and pointer classes */
+.activeColor {
+  margin-right: 10px; /* Add some margin to separate the words */
+}
+
+.pointer {
+  cursor: pointer;
+  color: #fff; /* Set the text color */
+  margin-right: 10px; /* Add some margin to separate the words */
+}

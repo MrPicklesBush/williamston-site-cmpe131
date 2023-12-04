@@ -120,9 +120,6 @@ function Register_LoginSection() {
         <br />
         <button>{login ? 'Sign In' : 'Sign Up'}</button>
       </form>
-      <Link to={buttonLink}>
-        <button className="toggle-btn">{buttonText}</button>
-      </Link>
     </div>
   );
 }
