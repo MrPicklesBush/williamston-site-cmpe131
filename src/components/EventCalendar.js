@@ -9,6 +9,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const EventCalendar = () => {
+
+    const handleEventClick = (event) => {
+        alert(`Event: ${event.title}\nDescription: ${event.description}`);
+    };
     const locales = {
         "en-US": require("date-fns/locale/en-US")
     }
@@ -24,16 +28,19 @@ const EventCalendar = () => {
     const events = [
         {
             title: "Community Donation Event",
+            description: "Community members donate any unused goods they do not want",
             start: new Date(2023, 11, 5),
             end: new Date(2023, 11, 11)
         },
         {
             title: "Food Festival",
+            description: "Enjoy food, beverages with live entertainment!",
             start: new Date(2023, 11, 12),
             end: new Date(2023, 11, 16)
         },
         {
             title: "Bingo",
+            description: "Come to the town hall to play Bingo and win prizes!",
             start: new Date(2023, 11, 9),
             end: new Date(2023, 11, 9)
         },
@@ -53,22 +60,23 @@ const EventCalendar = () => {
         console.log(`Event: ${event.title}, Start Date: ${formattedStartDate}`);
     });
 
-    const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" })
+    const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "", description: "" })
     const [allEvents, setAllEvents] = useState(events)
 
     function handleAddEvent() {
-        // Check if the new event already exists in the allEvents array
-        const eventExists = allEvents.some(
-            (event) => event.title === newEvent.title && event.start === newEvent.start && event.end === newEvent.end
-        );
+        // Check if the new event title already exists in the allEvents array
+        const eventExists = allEvents.some((event) => event.title === newEvent.title);
 
-        // If the event doesn't exist, add it to the allEvents array
+        // If the event title doesn't exist, add the new event to the allEvents array
         if (!eventExists) {
             setAllEvents([...allEvents, newEvent]);
+        } else {
+            // Alert the user that the event with the same title already exists
+            alert(`Event with title "${newEvent.title}" already exists.`);
         }
 
         // Reset the newEvent state
-        setNewEvent({ title: "", start: "", end: "" });
+        setNewEvent({ title: "", start: "", end: "", description: "" });
     }
 
 
@@ -80,6 +88,14 @@ const EventCalendar = () => {
                 <input type="text" placeholder="Add Title" style={{ width: "20%", marginRight: "10px" }}
                     value={newEvent.title} onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
                 />
+                <input
+                    type="text"
+                    id="description-input"
+                    placeholder="Add Description" // Add a description input field
+                    style={{ width: "20%", marginRight: "10px" }}
+                    value={newEvent.description}
+                    onChange={(e) => setNewEvent({ ...newEvent, description: e.target.value })}
+                />
                 <DatePicker placeholderText="Start Date" style={{ marginRight: "10px" }}
                     selected={newEvent.start} onChange={(start) => setNewEvent({ ...newEvent, start })}
                 />
@@ -89,7 +105,7 @@ const EventCalendar = () => {
                 <button style={{ marginTop: "10px" }} onClick={handleAddEvent}>Add Event</button>
             </div>
             <Calendar localizer={localizer} events={allEvents} startAccessor="start"
-                endAccessor="end" style={{ height: 500, margin: "50px" }} />
+                endAccessor="end" style={{ height: 500, margin: "50px" }} onSelectEvent={handleEventClick} />
         </div>
     );
 }
